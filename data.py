@@ -1,5 +1,4 @@
 import tkinter as tk
-import tkinter.ttk as ttk
 import datetime
 import configparser
 
@@ -10,11 +9,20 @@ class Data(tk.Frame):
 
         self.data = datetime.date.today()
 
+        self.config = self.leggi_file_ini()
+
         self.lblfrm_intervallo_date = tk.LabelFrame(self,
                                                     text='Data da elaborare',
                                                     labelanchor='n',
+                                                    font=(self.config['Font']['font']),
                                                     foreground='blue')
         self.lbl_data = tk.Label(self.lblfrm_intervallo_date, text=self.data.strftime('%d/%m/%Y'))
 
         self.lblfrm_intervallo_date.grid()
         self.lbl_data.grid()
+
+    @staticmethod
+    def leggi_file_ini():
+        ini = configparser.ConfigParser()
+        ini.read('config.ini')
+        return ini

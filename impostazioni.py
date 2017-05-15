@@ -1,7 +1,6 @@
 import tkinter as tk
-import tkinter.ttk as ttk
-import datetime
 import configparser
+
 
 class Impostazioni(tk.Frame):
     def __init__(self):
