@@ -3,8 +3,8 @@ import configparser
 
 
 class Impostazioni(tk.Frame):
-    def __init__(self):
-        tk.Frame.__init__(self)
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent, controller)
 
         self.config = self.leggi_file_ini()
 
