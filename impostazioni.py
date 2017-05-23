@@ -16,6 +16,9 @@ class Impostazioni(tk.Frame):
         self.lbl_ugalaxy_value = tk.StringVar()
         self.lbl_ugalaxy_value.set(self.config['Ugalaxy']['dir'])
 
+        self.lbl_pyinsta_value = tk.StringVar()
+        self.lbl_pyinsta_value.set(self.config['PyInsta']['dir'])
+
         # LABELFRAME UGALAXY
         self.lblfrm_ugalaxy = tk.LabelFrame(self, text='Ugalaxy', foreground='blue')
 
@@ -26,6 +29,18 @@ class Impostazioni(tk.Frame):
 
         self.lbl_ugalaxy = tk.Label(self.lblfrm_ugalaxy,
                                     textvariable=self.lbl_ugalaxy_value,
+                                    relief='sunken')
+
+        # LABELFRAME PyInsta
+        self.lblfrm_pyinsta = tk.LabelFrame(self, text='PyInsta Folder', foreground='blue')
+
+        # LABEL PyInsta
+        self.btn_pyinsta = tk.Button(self.lblfrm_pyinsta,
+                                     text='PyInsta Folder',
+                                     command=self.pyinsta_open_dir)
+
+        self.lbl_pyinsta = tk.Label(self.lblfrm_pyinsta,
+                                    textvariable=self.lbl_pyinsta_value,
                                     relief='sunken')
 
         # LABELFRAME winswgx
@@ -42,10 +57,14 @@ class Impostazioni(tk.Frame):
 
         # LAYOUT
         self.lblfrm_ugalaxy.grid(row=1, column=0)
-        self.lblfrm_winswgx.grid(row=2, column=0)
+        self.lblfrm_pyinsta.grid(row=2, column=0)
+        self.lblfrm_winswgx.grid(row=3, column=0)
 
         self.btn_ugalaxy.grid()
         self.lbl_ugalaxy.grid()
+
+        self.btn_pyinsta.grid()
+        self.lbl_pyinsta.grid()
 
         self.btn_dir_name.grid()
         self.lbl_win_loc.grid()
@@ -69,3 +88,10 @@ class Impostazioni(tk.Frame):
         self.config.set('Ugalaxy', 'dir', new_dirname)
         self.config.write(cfg_file)
         self.lbl_ugalaxy_value.set(new_dirname)
+
+    def pyinsta_open_dir(self):
+        new_dirname = filedialog.askdirectory(parent=self, initialdir='c:\\')
+        cfg_file = open('config.ini', 'w')
+        self.config.set('PyInsta', 'dir', new_dirname)
+        self.config.write(cfg_file)
+        self.lbl_pyinsta_value.set(new_dirname)

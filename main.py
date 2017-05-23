@@ -1,6 +1,7 @@
 from data import *
 from impostazioni import *
 from report import *
+from venduto_operatori import *
 import tkinter as tk
 import tkinter.ttk as ttk
 import os
@@ -38,8 +39,12 @@ class Main(tk.Frame):
         self.lbl_logo = tk.Label(self.frame_sx, image=self.img_btn1)
 
         # BUTTON operazioni
-        self.btn_operatori = tk.Button(self.frame_sx, text='Venduto\nOperatori')
+        self.btn_operatori = tk.Button(self.frame_sx,
+                                       text='Venduto\nOperatori',
+                                       command=self.venduto_operatori)
         self.btn_cast_iva = tk.Button(self.frame_sx, text='Castelletto Iva')
+
+        self.btn_chiudi = tk.Button(self.frame_sx, text='Chiudi', command=self.chiudi)
 
         # LAYOUT
         self.frame_sx.grid(row=1, column=0)
@@ -49,8 +54,16 @@ class Main(tk.Frame):
 
         self.btn_operatori.grid(sticky='we')
         self.btn_cast_iva.grid()
+        self.btn_chiudi.grid()
 
         self.notebook.grid()
+
+    def chiudi(self):
+        self.quit()
+
+    @staticmethod
+    def venduto_operatori():
+        Venduto_operatori()
 
 
 if __name__ == "__main__":
