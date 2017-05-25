@@ -2,6 +2,7 @@ from data import *
 from impostazioni import *
 from report import *
 from venduto_operatori import *
+from cast_iva import *
 import tkinter as tk
 import tkinter.ttk as ttk
 import os
@@ -33,7 +34,7 @@ class Main(tk.Frame):
         self.notebook.hide(2)
 
         # IMMAGINI
-        self.img_btn1 = tk.PhotoImage(file=os.path.join('immagini', 'logo_piccolo.gif'))
+        self.img_btn1 = tk.PhotoImage(file=os.path.join('immagini', 'logo.gif'))
 
         # LABEL logo
         self.lbl_logo = tk.Label(self.frame_sx, image=self.img_btn1)
@@ -42,7 +43,9 @@ class Main(tk.Frame):
         self.btn_operatori = tk.Button(self.frame_sx,
                                        text='Venduto\nOperatori',
                                        command=self.venduto_operatori)
-        self.btn_cast_iva = tk.Button(self.frame_sx, text='Castelletto Iva')
+        self.btn_cast_iva = tk.Button(self.frame_sx,
+                                      text='Castelletto Iva',
+                                      command=self.castelletto_iva)
 
         self.btn_chiudi = tk.Button(self.frame_sx, text='Chiudi', command=self.chiudi)
 
@@ -61,9 +64,11 @@ class Main(tk.Frame):
     def chiudi(self):
         self.quit()
 
-    @staticmethod
-    def venduto_operatori():
-        Venduto_operatori()
+    def venduto_operatori(self):
+        Venduto_operatori(self)
+
+    def castelletto_iva(self):
+        Castelletto_iva(self)
 
 
 if __name__ == "__main__":

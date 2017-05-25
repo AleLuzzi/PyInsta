@@ -2,7 +2,7 @@ import configparser
 # from tkinter import ttk
 import datetime
 import tkinter as tk
-import os
+# import os
 from distutils.dir_util import copy_tree
 # import win32print
 
@@ -58,7 +58,4 @@ class Data(tk.Frame):
         return ini
 
     def aggiorna(self):
-        if not os.listdir(self.config['PyInsta']['dir']):
-            print('dir piena')
-        else:
             copy_tree(self.config['Ugalaxy']['dir'], self.config['PyInsta']['dir'])
