@@ -56,8 +56,8 @@ class Main(tk.Frame):
         self.lbl_logo.grid()
 
         self.btn_operatori.grid(sticky='we')
-        self.btn_cast_iva.grid()
-        self.btn_chiudi.grid()
+        self.btn_cast_iva.grid(sticky='we')
+        self.btn_chiudi.grid(sticky='we')
 
         self.notebook.grid()
 

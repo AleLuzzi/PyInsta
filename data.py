@@ -1,5 +1,5 @@
 import configparser
-# from tkinter import ttk
+from tkinter import ttk
 import datetime
 import tkinter as tk
 # import os
@@ -16,6 +16,11 @@ class Data(tk.Frame):
 
         self.config = self.leggi_file_ini()
 
+        self.mesi_dict = {'Gennaio': 1, 'Febbraio': 2, 'Marzo': 3,
+                          'Aprile': 4, 'Maggio': 5, 'Giugno': 6,
+                          'Luglio': 7, 'Agosto': 8, 'Settembre': 9,
+                          'Ottobre': 10, 'Novembre': 11, 'Dicembre': 12}
+
         # STRINGVAR
         self.data_scelta = tk.StringVar()
         self.data_scelta.set(self.data)
@@ -26,6 +31,13 @@ class Data(tk.Frame):
                                                     labelanchor='n',
                                                     font=(self.config['Font']['font'], 20),
                                                     foreground='blue')
+
+        # COMBOBOX per selezione mese
+        self.cmb_box_mese = ttk.Combobox(self.lblfrm_intervallo_date,
+                                         state='readonly',
+                                         values=list(self.mesi_dict.keys()))
+        self.cmb_box_mese.current(0)
+        self.cmb_box_mese.bind('<<ComboboxSelected>>', self.combo_selected)
 
         # RADIOBUTTON scelta data
         self.rdbtn1 = tk.Radiobutton(self.lblfrm_intervallo_date,
@@ -48,6 +60,7 @@ class Data(tk.Frame):
         self.lblfrm_intervallo_date.grid()
         self.rdbtn1.grid(sticky='w')
         self.rdbtn2.grid(sticky='w')
+        self.cmb_box_mese.grid()
 
         self.btn_aggiorna.grid()
 
@@ -59,3 +72,6 @@ class Data(tk.Frame):
 
     def aggiorna(self):
             copy_tree(self.config['Ugalaxy']['dir'], self.config['PyInsta']['dir'])
+
+    def combo_selected(self, event):
+        self.data_scelta.set('2017-' + '0' + str(self.mesi_dict[self.cmb_box_mese.get()]))

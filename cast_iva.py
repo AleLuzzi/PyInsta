@@ -17,11 +17,11 @@ class Castelletto_iva(tk.Toplevel):
         self.config = self.leggi_file_ini()
 
         self.controller = controller
-        self.data = self.controller.tab1.data_scelta.get()
-        self.data_conv = dt.datetime.strptime(self.data, "%Y-%m-%d").date()
+        # TODO controllare la data in arrivo ( può essere anche solo il mese )
 
-        self.tabella = DBF(self.config['PyInsta']['dir']+'\\castiva.dbf', load=True)
-        print(self.tabella.field_names)
+        self.data = self.controller.tab1.data_scelta.get()
+
+        self.tabella = DBF(self.config['PyInsta']['dir'] + '\\castiva.dbf', load=True)
 
         # TREEVIEW per visualizzare dati
         self.tree = ttk.Treeview(self, height=10)
@@ -46,14 +46,29 @@ class Castelletto_iva(tk.Toplevel):
         self.tree.grid()
         self.btn_chiudi.grid()
 
-        for record in self.tabella:
-            if record['DATA_IVA'] == self.data_conv:
-                print(record)
-                self.tree.insert('', 'end',
-                                 values=(record['DATA_IVA'].strftime('%d-%m-%Y'),
-                                         record['DES_IVA'],
-                                         record['IMPONIBILE']/100,
-                                         record['IMPOSTA']/100))
+        try:
+            self.data_conv = dt.datetime.strptime(self.data, "%Y-%m-%d").date()
+
+            for record in self.tabella:
+                if record['IMPONIBILE'] is not None and record['DATA_IVA'] == self.data_conv:
+                    self.tree.insert('', 'end',
+                                     values=(record['DATA_IVA'].strftime('%d-%m-%Y'),
+                                             record['DES_IVA'],
+                                             record['IMPONIBILE'] / 100,
+                                             record['IMPOSTA'] / 100))
+
+        except ValueError:
+            self.data_conv = dt.datetime.strptime(self.data, "%Y-%m").date()
+
+            for record in self.tabella:
+                if record['IMPONIBILE'] is not None:
+                    if record['DATA_IVA'].month == self.data_conv.month and \
+                                    record['DATA_IVA'].year == self.data_conv.year:
+                        self.tree.insert('', 'end',
+                                         values=(record['DATA_IVA'].strftime('%d-%m-%Y'),
+                                                 record['DES_IVA'],
+                                                 record['IMPONIBILE'] / 100,
+                                                 record['IMPOSTA'] / 100))
 
     @staticmethod
     def leggi_file_ini():
