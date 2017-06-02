@@ -17,7 +17,6 @@ class Castelletto_iva(tk.Toplevel):
         self.config = self.leggi_file_ini()
 
         self.controller = controller
-        # TODO controllare la data in arrivo ( può essere anche solo il mese )
 
         self.data = self.controller.tab1.data_scelta.get()
 

@@ -21,14 +21,10 @@ class Venduto_operatori(tk.Toplevel):
 
         self.tabella = DBF(self.config['Ugalaxy']['dir']+'\\finstor.dbf')
         print(self.tabella.field_names)
+        print(len(self.tabella.records))
 
-        print('Inizio: {:%Y-%m-%d %H:%M:%S}'.format(dt.datetime.now()))
-
-        for record in self.tabella:
-            if record['DATA_VEND'] == self.data_conv:
-                print(record)
-
-        print('Fine: {:%Y-%b-%d %H:%M:%S}'.format(dt.datetime.now()))
+        self.op1 = {'tot_vend': 0, 'r_cre': 0, 'usc': 0, 'prel': 0, 'incasso': 0, 'c_cre': 0}
+        self.op2 = {'tot_vend': 0, 'r_cre': 0, 'usc': 0, 'prel': 0, 'incasso': 0, 'c_cre': 0}
 
         # BUTTON chiudi
         self.btn_chiudi = tk.Button(self, text='Chiudi',
@@ -36,6 +32,52 @@ class Venduto_operatori(tk.Toplevel):
 
         # LAYOUT
         self.btn_chiudi.grid()
+
+        print('Inizio: {:%Y-%m-%d %H:%M:%S}'.format(dt.datetime.now()))
+        i = 0
+        for record in self.tabella:
+
+            if record['DATA_VEND'] == dt.datetime.strptime('20170510', "%Y%m%d").date():
+                i += 1
+                print(record['LABEL'])
+                if record['CODICE'] == '0001' and record['LABEL'] == 'TOT_VEND':
+                    self.op1['tot_vend'] = record['IMP']
+
+                if record['CODICE'] == '0001' and record['LABEL'] == 'PAG00R_CRE':
+                    self.op1['r_cre'] = record['IMP']
+
+                if record['CODICE'] == '0001' and record['LABEL'] == 'PAG00USC':
+                    self.op1['usc'] = record['IMP']
+
+                if record['CODICE'] == '0001' and record['LABEL'] == 'PAG00PREL':
+                    self.op1['prel'] = record['IMP']
+
+                if record['CODICE'] == '0001' and record['LABEL'] == 'PAG00':
+                    self.op1['incasso'] = record['IMP']
+
+                if record['CODICE'] == '0001' and record['LABEL'] == 'PAG05':
+                    self.op1['c_cre'] = record['IMP']
+
+                if record['CODICE'] == '0002' and record['LABEL'] == 'TOT_VEND':
+                    self.op2['tot_vend'] = record['IMP']
+
+                if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00R_CRE':
+                    self.op2['r_cre'] = record['IMP']
+
+                if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00PREL':
+                    self.op2['prel'] = record['IMP']
+
+                if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00':
+                    self.op2['incasso'] = record['IMP']
+
+                if record['CODICE'] == '0002' and record['LABEL'] == 'PAG05':
+                    self.op2['c_cre'] = record['IMP']
+
+        print('Fine: {:%Y-%b-%d %H:%M:%S}'.format(dt.datetime.now()))
+
+        print(self.op1)
+        print(self.op2)
+        print(i)
 
     @staticmethod
     def leggi_file_ini():
