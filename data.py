@@ -3,7 +3,6 @@ from tkinter import ttk
 import datetime
 import tkinter as tk
 import os
-import time
 from distutils.dir_util import copy_tree
 # import win32print
 
@@ -25,6 +24,9 @@ class Data(tk.Frame):
         # STRINGVAR
         self.data_scelta = tk.StringVar()
         self.data_scelta.set(self.data)
+
+        self.ultimo_agg = tk.StringVar()
+        self.ultimo_agg.set(datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y %H:%M'))
 
         # LABELFRAME Date
         self.lblfrm_intervallo_date = tk.LabelFrame(self,
@@ -57,8 +59,7 @@ class Data(tk.Frame):
                                       text='Aggiorna dati\ndelle vendite',
                                       command=self.aggiorna)
         self.lbl_ultimo_agg = tk.Label(self,
-                                       text='Ultimo aggiornamento\n' +
-                                            datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y'))
+                                       text='Ultimo aggiornamento\n' + self.ultimo_agg.get())
 
         # LAYOUT
         self.lblfrm_intervallo_date.grid()
