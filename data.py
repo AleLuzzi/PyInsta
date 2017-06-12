@@ -78,6 +78,7 @@ class Data(tk.Frame):
 
     def aggiorna(self):
             copy_tree(self.config['Ugalaxy']['dir'], self.config['PyInsta']['dir'])
+            self.ultimo_agg.set(datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y %H:%M'))
 
     def combo_selected(self, event):
         self.data_scelta.set('2017-' + '0' + str(self.mesi_dict[self.cmb_box_mese.get()]))
