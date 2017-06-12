@@ -2,7 +2,8 @@ import configparser
 from tkinter import ttk
 import datetime
 import tkinter as tk
-# import os
+import os
+import time
 from distutils.dir_util import copy_tree
 # import win32print
 
@@ -55,6 +56,9 @@ class Data(tk.Frame):
         self.btn_aggiorna = tk.Button(self,
                                       text='Aggiorna dati\ndelle vendite',
                                       command=self.aggiorna)
+        self.lbl_ultimo_agg = tk.Label(self,
+                                       text='Ultimo aggiornamento\n' +
+                                            datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y'))
 
         # LAYOUT
         self.lblfrm_intervallo_date.grid()
@@ -63,6 +67,7 @@ class Data(tk.Frame):
         self.cmb_box_mese.grid()
 
         self.btn_aggiorna.grid()
+        self.lbl_ultimo_agg.grid()
 
     @staticmethod
     def leggi_file_ini():
