@@ -46,7 +46,8 @@ class Castelletto_iva(tk.Toplevel):
         self.btn_chiudi.grid()
 
         try:
-            self.data_conv = dt.datetime.strptime(self.data, "%Y-%m-%d").date()
+            self.data_conv = dt.datetime.strptime(self.data, "%d-%m-%Y").date()
+            print(self.data_conv)
 
             for record in self.tabella:
                 if record['IMPONIBILE'] is not None and record['DATA_IVA'] == self.data_conv:

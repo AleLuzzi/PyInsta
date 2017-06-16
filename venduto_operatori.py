@@ -20,10 +20,9 @@ class Venduto_operatori(tk.Toplevel):
 
         self.controller = controller
         self.data = self.controller.tab1.data_scelta.get()
-        self.data_conv = dt.datetime.strptime(self.data, "%Y-%m-%d").date()
+        self.data_conv = dt.datetime.strptime(self.data, "%d-%m-%Y").date()
 
-        self.tabella = DBF(self.config['Ugalaxy']['dir']+'\\finstor.dbf')
-        print(len(self.tabella.records))
+        self.tabella = DBF(self.config['Ugalaxy']['dir'] + '\\finstor.dbf')
 
         wind_mes = tk.Toplevel()
 
@@ -37,8 +36,11 @@ class Venduto_operatori(tk.Toplevel):
         label.grid()
         prog_bar.grid()
 
-        self.op1 = {'tot_vend': 0, 'r_cre': 0, 'usc': 0, 'prel': 0, 'incasso': 0, 'c_cre': 0}
-        self.op2 = {'tot_vend': 0, 'r_cre': 0, 'usc': 0, 'prel': 0, 'incasso': 0, 'c_cre': 0}
+        self.op1 = {'tot_vend': 0, 'r_cre': 0, 'usc': 0, 'prel': 0, 'incasso': 0, 'c_cre': 0, 'f_cassa': 0}
+        self.op2 = {'tot_vend': 0, 'r_cre': 0, 'usc': 0, 'prel': 0, 'incasso': 0, 'c_cre': 0, 'f_cassa': 0}
+
+        self.op1_sbilancio = 0
+        self.op2_sbilancio = 0
 
         thread = threading.Thread(target=self.elabora)
         thread.start()
@@ -51,17 +53,45 @@ class Venduto_operatori(tk.Toplevel):
 
         # LABELFRAME cassa 1
         self.lblfrm_cassa1 = tk.LabelFrame(self, text='CASSA 1')
-        self.lbl_incasso_op1 = tk.Label(self.lblfrm_cassa1, text='Incasso ' + str(self.op1['incasso']/100))
-        self.lbl_uscite_op1 = tk.Label(self.lblfrm_cassa1, text='Uscite' + str(self.op1['usc']/100))
-        self.lbl_prelievi_op1 = tk.Label(self.lblfrm_cassa1, text='Prelievi' + str(self.op1['prel']/100))
-        self.lbl_rec_cred_op1 = tk.Label(self.lblfrm_cassa1, text='Recupero Crediti' + str(self.op1['r_cre']/100))
+
+        self.lbl_f_cassa_op1 = tk.Label(self.lblfrm_cassa1, text='Fondo Cassa')
+        self.lbl_f_cassa_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['f_cassa'] / 100))
+
+        self.lbl_incasso_op1 = tk.Label(self.lblfrm_cassa1, text='Incasso ')
+        self.lbl_incasso_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['incasso'] / 100))
+
+        self.lbl_uscite_op1 = tk.Label(self.lblfrm_cassa1, text='Uscite')
+        self.lbl_uscite_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['usc'] / 100))
+
+        self.lbl_prelievi_op1 = tk.Label(self.lblfrm_cassa1, text='Prelievi')
+        self.lbl_prelievi_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['prel'] / 100))
+
+        self.lbl_rec_cred_op1 = tk.Label(self.lblfrm_cassa1, text='Recupero Crediti')
+        self.lbl_rec_cred_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['r_cre'] / 100))
+
+        self.lbl_sbilancio_op1 = tk.Label(self.lblfrm_cassa1, text='SBILANCIO')
+        self.lbl_sbilancio_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1_sbilancio / 100))
 
         # LABELFRAME cassa 2
         self.lblfrm_cassa2 = tk.LabelFrame(self, text='CASSA 2')
-        self.lbl_incasso_op2 = tk.Label(self.lblfrm_cassa2, text='Incasso ' + str(self.op2['incasso']/100))
-        self.lbl_uscite_op2 = tk.Label(self.lblfrm_cassa2, text='Uscite' + str(self.op2['usc'] / 100))
-        self.lbl_prelievi_op2 = tk.Label(self.lblfrm_cassa2, text='Prelievi' + str(self.op2['prel'] / 100))
-        self.lbl_rec_cred_op2 = tk.Label(self.lblfrm_cassa2, text='Recupero Crediti' + str(self.op2['r_cre'] / 100))
+
+        self.lbl_f_cassa_op2 = tk.Label(self.lblfrm_cassa2, text='Fondo Cassa')
+        self.lbl_f_cassa_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['f_cassa'] / 100))
+
+        self.lbl_incasso_op2 = tk.Label(self.lblfrm_cassa2, text='Incasso ')
+        self.lbl_incasso_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['incasso'] / 100))
+
+        self.lbl_uscite_op2 = tk.Label(self.lblfrm_cassa2, text='Uscite')
+        self.lbl_uscite_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['usc'] / 100))
+
+        self.lbl_prelievi_op2 = tk.Label(self.lblfrm_cassa2, text='Prelievi')
+        self.lbl_prelievi_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['prel'] / 100))
+
+        self.lbl_rec_cred_op2 = tk.Label(self.lblfrm_cassa2, text='Recupero Crediti')
+        self.lbl_rec_cred_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['r_cre'] / 100))
+
+        self.lbl_sbilancio_op2 = tk.Label(self.lblfrm_cassa2, text='SBILANCIO')
+        self.lbl_sbilancio_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2_sbilancio / 100))
 
         # BUTTON chiudi
         self.btn_chiudi = tk.Button(self, text='Chiudi',
@@ -69,16 +99,44 @@ class Venduto_operatori(tk.Toplevel):
 
         # LAYOUT
         self.lblfrm_cassa1.grid()
-        self.lbl_incasso_op1.grid()
-        self.lbl_uscite_op1.grid()
-        self.lbl_prelievi_op1.grid()
-        self.lbl_rec_cred_op1.grid()
+
+        self.lbl_f_cassa_op1.grid(row=0, column=0)
+        self.lbl_f_cassa_op1_imp.grid(row=0, column=1, sticky='e')
+
+        self.lbl_incasso_op1.grid(row=1, column=0)
+        self.lbl_incasso_op1_imp.grid(row=1, column=1, sticky='e')
+
+        self.lbl_uscite_op1.grid(row=2, column=0)
+        self.lbl_uscite_op1_imp.grid(row=2, column=1, sticky='e')
+
+        self.lbl_prelievi_op1.grid(row=3, column=0)
+        self.lbl_prelievi_op1_imp.grid(row=3, column=1, sticky='e')
+
+        self.lbl_rec_cred_op1.grid(row=4, column=0)
+        self.lbl_rec_cred_op1_imp.grid(row=4, column=1, sticky='e')
+
+        self.lbl_sbilancio_op1.grid(row=5, column=0)
+        self.lbl_sbilancio_op1_imp.grid(row=5, column=1, sticky='e')
 
         self.lblfrm_cassa2.grid()
-        self.lbl_incasso_op2.grid()
-        self.lbl_uscite_op2.grid()
-        self.lbl_prelievi_op2.grid()
-        self.lbl_rec_cred_op2.grid()
+
+        self.lbl_f_cassa_op2.grid(row=0, column=0)
+        self.lbl_f_cassa_op2_imp.grid(row=0, column=1, sticky='e')
+
+        self.lbl_incasso_op2.grid(row=1, column=0)
+        self.lbl_incasso_op2_imp.grid(row=1, column=1, sticky='e')
+
+        self.lbl_uscite_op2.grid(row=2, column=0)
+        self.lbl_uscite_op2_imp.grid(row=2, column=1, sticky='e')
+
+        self.lbl_prelievi_op2.grid(row=3, column=0)
+        self.lbl_prelievi_op2_imp.grid(row=3, column=1, sticky='e')
+
+        self.lbl_rec_cred_op2.grid(row=4, column=0)
+        self.lbl_rec_cred_op2_imp.grid(row=4, column=1, sticky='e')
+
+        self.lbl_sbilancio_op2.grid(row=5, column=0)
+        self.lbl_sbilancio_op2_imp.grid(row=5, column=1, sticky='e')
 
         self.btn_chiudi.grid()
 
@@ -89,15 +147,11 @@ class Venduto_operatori(tk.Toplevel):
         return ini
 
     def elabora(self):
-        # print('Inizio: {:%Y-%m-%d %H:%M:%S}'.format(dt.datetime.now()))
-        i = 0
-        self.data_conv = dt.datetime.strptime(self.data, "%Y-%m-%d").date()
-
         for record in self.tabella:
 
             if record['DATA_VEND'] == self.data_conv:
-                i += 1
-                print(record['LABEL'])
+
+                # print(record['LABEL'])
                 if record['CODICE'] == '0001' and record['LABEL'] == 'TOT_VEND':
                     self.op1['tot_vend'] = record['IMP']
 
@@ -116,6 +170,9 @@ class Venduto_operatori(tk.Toplevel):
                 if record['CODICE'] == '0001' and record['LABEL'] == 'PAG05':
                     self.op1['c_cre'] = record['IMP']
 
+                if record['CODICE'] == '0001' and record['LABEL'] == 'PAG00F_C':
+                    self.op1['f_cassa'] = record['IMP']
+
                 if record['CODICE'] == '0002' and record['LABEL'] == 'TOT_VEND':
                     self.op2['tot_vend'] = record['IMP']
 
@@ -131,8 +188,13 @@ class Venduto_operatori(tk.Toplevel):
                 if record['CODICE'] == '0002' and record['LABEL'] == 'PAG05':
                     self.op2['c_cre'] = record['IMP']
 
-        # print('Fine: {:%Y-%b-%d %H:%M:%S}'.format(dt.datetime.now()))
-        # print(i)
+                if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00F_C':
+                    self.op2['f_cassa'] = record['IMP']
+
+            self.op1_sbilancio = self.op1['f_cassa'] + self.op1['incasso'] \
+                                 - self.op1['prel'] - self.op1['usc'] + self.op1['r_cre']
+            self.op2_sbilancio = self.op2['f_cassa'] + self.op2['incasso'] \
+                                 - self.op2['prel'] - self.op2['usc'] + self.op2['r_cre']
 
     def chiudi(self):
         self.destroy()
