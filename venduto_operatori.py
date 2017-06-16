@@ -51,46 +51,55 @@ class Venduto_operatori(tk.Toplevel):
 
         wind_mes.destroy()
 
+        # FONT Label
+        self.f_label = ('Verdana', 10)
+
         # LABELFRAME cassa 1
-        self.lblfrm_cassa1 = tk.LabelFrame(self, text='CASSA 1')
+        self.lblfrm_cassa1 = tk.LabelFrame(self, text='CASSA 1',
+                                           foreground='blue',
+                                           font=('Verdana', 20),
+                                           labelanchor='n')
 
-        self.lbl_f_cassa_op1 = tk.Label(self.lblfrm_cassa1, text='Fondo Cassa')
-        self.lbl_f_cassa_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['f_cassa'] / 100))
+        self.lbl_f_cassa_op1 = tk.Label(self.lblfrm_cassa1, text='Fondo Cassa', font=self.f_label)
+        self.lbl_f_cassa_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['f_cassa'] / 100), bg='white')
 
-        self.lbl_incasso_op1 = tk.Label(self.lblfrm_cassa1, text='Incasso ')
-        self.lbl_incasso_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['incasso'] / 100))
+        self.lbl_incasso_op1 = tk.Label(self.lblfrm_cassa1, text='Incasso ', font=self.f_label)
+        self.lbl_incasso_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['incasso'] / 100), bg='white')
 
-        self.lbl_uscite_op1 = tk.Label(self.lblfrm_cassa1, text='Uscite')
-        self.lbl_uscite_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['usc'] / 100))
+        self.lbl_uscite_op1 = tk.Label(self.lblfrm_cassa1, text='Uscite', font=self.f_label)
+        self.lbl_uscite_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['usc'] / 100), bg='white')
 
-        self.lbl_prelievi_op1 = tk.Label(self.lblfrm_cassa1, text='Prelievi')
-        self.lbl_prelievi_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['prel'] / 100))
+        self.lbl_prelievi_op1 = tk.Label(self.lblfrm_cassa1, text='Prelievi', font=self.f_label)
+        self.lbl_prelievi_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['prel'] / 100), bg='white')
 
-        self.lbl_rec_cred_op1 = tk.Label(self.lblfrm_cassa1, text='Recupero Crediti')
-        self.lbl_rec_cred_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['r_cre'] / 100))
+        self.lbl_rec_cred_op1 = tk.Label(self.lblfrm_cassa1, text='Recupero Crediti', font=self.f_label)
+        self.lbl_rec_cred_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1['r_cre'] / 100), bg='white')
 
-        self.lbl_sbilancio_op1 = tk.Label(self.lblfrm_cassa1, text='SBILANCIO')
+        self.lbl_sbilancio_op1 = tk.Label(self.lblfrm_cassa1, text='SBILANCIO', font=('Verdana', 15))
         self.lbl_sbilancio_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1_sbilancio / 100))
 
         # LABELFRAME cassa 2
-        self.lblfrm_cassa2 = tk.LabelFrame(self, text='CASSA 2')
+        self.lblfrm_cassa2 = tk.LabelFrame(self, text='CASSA 2',
+                                           foreground='blue',
+                                           font=('Verdana', 20),
+                                           labelanchor='n')
 
-        self.lbl_f_cassa_op2 = tk.Label(self.lblfrm_cassa2, text='Fondo Cassa')
-        self.lbl_f_cassa_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['f_cassa'] / 100))
+        self.lbl_f_cassa_op2 = tk.Label(self.lblfrm_cassa2, text='Fondo Cassa', font=self.f_label)
+        self.lbl_f_cassa_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['f_cassa'] / 100), bg='white')
 
-        self.lbl_incasso_op2 = tk.Label(self.lblfrm_cassa2, text='Incasso ')
-        self.lbl_incasso_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['incasso'] / 100))
+        self.lbl_incasso_op2 = tk.Label(self.lblfrm_cassa2, text='Incasso', font=self.f_label)
+        self.lbl_incasso_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['incasso'] / 100), bg='white')
 
-        self.lbl_uscite_op2 = tk.Label(self.lblfrm_cassa2, text='Uscite')
-        self.lbl_uscite_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['usc'] / 100))
+        self.lbl_uscite_op2 = tk.Label(self.lblfrm_cassa2, text='Uscite', font=self.f_label)
+        self.lbl_uscite_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['usc'] / 100), bg='white')
 
-        self.lbl_prelievi_op2 = tk.Label(self.lblfrm_cassa2, text='Prelievi')
-        self.lbl_prelievi_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['prel'] / 100))
+        self.lbl_prelievi_op2 = tk.Label(self.lblfrm_cassa2, text='Prelievi', font=self.f_label)
+        self.lbl_prelievi_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['prel'] / 100), bg='white')
 
-        self.lbl_rec_cred_op2 = tk.Label(self.lblfrm_cassa2, text='Recupero Crediti')
-        self.lbl_rec_cred_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['r_cre'] / 100))
+        self.lbl_rec_cred_op2 = tk.Label(self.lblfrm_cassa2, text='Recupero Crediti', font=self.f_label)
+        self.lbl_rec_cred_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2['r_cre'] / 100), bg='white')
 
-        self.lbl_sbilancio_op2 = tk.Label(self.lblfrm_cassa2, text='SBILANCIO')
+        self.lbl_sbilancio_op2 = tk.Label(self.lblfrm_cassa2, text='SBILANCIO', font=('Verdana', 15))
         self.lbl_sbilancio_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2_sbilancio / 100))
 
         # BUTTON chiudi
@@ -98,7 +107,7 @@ class Venduto_operatori(tk.Toplevel):
                                     command=self.chiudi)
 
         # LAYOUT
-        self.lblfrm_cassa1.grid()
+        self.lblfrm_cassa1.grid(row=0, column=0)
 
         self.lbl_f_cassa_op1.grid(row=0, column=0)
         self.lbl_f_cassa_op1_imp.grid(row=0, column=1, sticky='e')
@@ -118,7 +127,7 @@ class Venduto_operatori(tk.Toplevel):
         self.lbl_sbilancio_op1.grid(row=5, column=0)
         self.lbl_sbilancio_op1_imp.grid(row=5, column=1, sticky='e')
 
-        self.lblfrm_cassa2.grid()
+        self.lblfrm_cassa2.grid(row=0, column=1)
 
         self.lbl_f_cassa_op2.grid(row=0, column=0)
         self.lbl_f_cassa_op2_imp.grid(row=0, column=1, sticky='e')
