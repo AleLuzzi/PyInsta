@@ -50,7 +50,7 @@ class Main(tk.Frame):
         self.btn_chiudi = tk.Button(self.frame_sx, text='Chiudi', command=self.chiudi)
 
         # LAYOUT
-        self.frame_sx.grid(row=1, column=0)
+        self.frame_sx.grid(row=1, column=0, sticky='ns')
         self.frame_dx.grid(row=1, column=1)
 
         self.lbl_logo.grid()
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     root = tk.Tk()
     x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
     y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
-    root.geometry("+%d+%d" % (x, y))
+    root.geometry("600x300+%d+%d" % (x, y))
     root.title('PyInsta')
     Main(root).grid()
     root.mainloop()
