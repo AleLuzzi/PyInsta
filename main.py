@@ -13,8 +13,15 @@ class Main(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         # FRAME
-        self.frame_sx = tk.Frame(self)
-        self.frame_dx = tk.Frame(self)
+        self.frame_sx = tk.Frame(self, height=300, width=300, bd=1, relief="raised", bg="white")
+        self.frame_sx.grid_propagate(False)
+        self.frame_sx.grid_rowconfigure(0, weight=2)
+        self.frame_sx.grid_columnconfigure(0, weight=2)
+
+        self.frame_dx = tk.Frame(self, height=300, width=300, bg="white")
+        self.frame_dx.grid_propagate(False)
+        self.frame_dx.grid_rowconfigure(0, weight=2)
+        self.frame_dx.grid_columnconfigure(0, weight=2)
 
         # NOTEBOOK
         self.notebook = ttk.Notebook(self.frame_dx)
@@ -59,7 +66,7 @@ class Main(tk.Frame):
         self.btn_cast_iva.grid(sticky='we')
         self.btn_chiudi.grid(sticky='we')
 
-        self.notebook.grid()
+        self.notebook.grid(sticky='we')
 
     def chiudi(self):
         self.quit()
