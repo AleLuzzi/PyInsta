@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import filedialog
 import configparser
 
@@ -95,3 +96,17 @@ class Impostazioni(tk.Frame):
         self.config.set('PyInsta', 'dir', new_dirname)
         self.config.write(cfg_file)
         self.lbl_pyinsta_value.set(new_dirname)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    main = tk.Frame(root)
+    x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
+    y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
+    root.geometry("600x300+%d+%d" % (x, y))
+    root.title('PyInsta')
+    notebook = ttk.Notebook(main)
+    tab1 = Impostazioni(notebook, main)
+    notebook.add(tab1, text='Impostazioni', compound='left')
+    main.grid()
+    notebook.grid()
+    root.mainloop()

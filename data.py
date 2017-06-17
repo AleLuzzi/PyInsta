@@ -29,9 +29,6 @@ class Data(tk.Frame):
         self.ultimo_agg = tk.StringVar()
         self.ultimo_agg.set(datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y %H:%M'))
 
-        # DATEPICKER
-        self.picker = Datepicker(self, dateformat='%d-%m-%Y', datevar=self.data_scelta)
-
         # LABELFRAME Date
         self.lblfrm_intervallo_date = tk.LabelFrame(self,
                                                     text='Data da elaborare',
@@ -39,26 +36,15 @@ class Data(tk.Frame):
                                                     font=(self.config['Font']['font'], 20),
                                                     foreground='blue')
 
+        # DATEPICKER
+        self.picker = Datepicker(self.lblfrm_intervallo_date, dateformat='%d-%m-%Y', datevar=self.data_scelta)
+
         # COMBOBOX per selezione mese
         self.cmb_box_mese = ttk.Combobox(self.lblfrm_intervallo_date,
                                          state='readonly',
                                          values=list(self.mesi_dict.keys()))
         self.cmb_box_mese.current(0)
         self.cmb_box_mese.bind('<<ComboboxSelected>>', self.combo_selected)
-
-        # RADIOBUTTON scelta data
-        '''
-        self.rdbtn1 = tk.Radiobutton(self.lblfrm_intervallo_date,
-                                     text='Oggi   ' + self.data.strftime('%d/%m/%Y'),
-                                     font=(self.config['Font']['font'], 15),
-                                     variable=self.data_scelta,
-                                     value=self.data)
-        self.rdbtn2 = tk.Radiobutton(self.lblfrm_intervallo_date,
-                                     text='Ieri    ' + (self.data - datetime.timedelta(days=1)).strftime('%d/%m/%Y'),
-                                     font=(self.config['Font']['font'], 15),
-                                     variable=self.data_scelta,
-                                     value=(self.data - datetime.timedelta(days=1)))
-        '''
 
         # BUTTON controlla aggiornamenti
         self.btn_aggiorna = tk.Button(self,
@@ -69,8 +55,6 @@ class Data(tk.Frame):
 
         # LAYOUT
         self.lblfrm_intervallo_date.grid()
-        # self.rdbtn1.grid(sticky='w')
-        # self.rdbtn2.grid(sticky='w')
         self.picker.grid()
         self.cmb_box_mese.grid()
 
@@ -89,3 +73,17 @@ class Data(tk.Frame):
 
     def combo_selected(self, event):
         self.data_scelta.set('2017-' + '0' + str(self.mesi_dict[self.cmb_box_mese.get()]))
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    main = tk.Frame(root)
+    x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
+    y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
+    root.geometry("600x300+%d+%d" % (x, y))
+    root.title('PyInsta')
+    notebook = ttk.Notebook(main)
+    tab1 = Data(notebook, main)
+    notebook.add(tab1, text='Data', compound='left')
+    main.grid()
+    notebook.grid()
+    root.mainloop()
