@@ -160,7 +160,7 @@ class Venduto_operatori(tk.Toplevel):
 
             if record['DATA_VEND'] == self.data_conv:
 
-                # print(record['LABEL'])
+                print(record['LABEL'], record['IMP'])
                 if record['CODICE'] == '0001' and record['LABEL'] == 'TOT_VEND':
                     self.op1['tot_vend'] = record['IMP']
 
@@ -187,6 +187,9 @@ class Venduto_operatori(tk.Toplevel):
 
                 if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00R_CRE':
                     self.op2['r_cre'] = record['IMP']
+
+                if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00USC':
+                    self.op2['usc'] = record['IMP']
 
                 if record['CODICE'] == '0002' and record['LABEL'] == 'PAG00PREL':
                     self.op2['prel'] = record['IMP']
