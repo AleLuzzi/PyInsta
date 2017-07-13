@@ -26,9 +26,6 @@ class Data(tk.Frame):
         self.data_scelta = tk.StringVar()
         self.data_scelta.set(self.data)
 
-        self.ultimo_agg = tk.StringVar()
-        self.ultimo_agg.set(datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y %H:%M'))
-
         # LABELFRAME Date
         self.lblfrm_intervallo_date = tk.LabelFrame(self,
                                                     text='Data da elaborare',
@@ -46,30 +43,16 @@ class Data(tk.Frame):
         self.cmb_box_mese.current(0)
         self.cmb_box_mese.bind('<<ComboboxSelected>>', self.combo_selected)
 
-        # BUTTON controlla aggiornamenti
-        self.btn_aggiorna = tk.Button(self,
-                                      text='Aggiorna dati\ndelle vendite',
-                                      command=self.aggiorna)
-        self.lbl_ultimo_agg = tk.Label(self,
-                                       text='Ultimo aggiornamento\n' + self.ultimo_agg.get())
-
         # LAYOUT
         self.lblfrm_intervallo_date.grid()
         self.picker.grid()
         self.cmb_box_mese.grid()
-
-        self.btn_aggiorna.grid()
-        self.lbl_ultimo_agg.grid()
 
     @staticmethod
     def leggi_file_ini():
         ini = configparser.ConfigParser()
         ini.read('config.ini')
         return ini
-
-    def aggiorna(self):
-            copy_tree(self.config['Ugalaxy']['dir'], self.config['PyInsta']['dir'])
-            self.ultimo_agg.set(datetime.datetime.fromtimestamp(os.path.getmtime(self.config['PyInsta']['dir'] + '\\finstor.dbf')).strftime('%d/%m/%Y %H:%M'))
 
     def combo_selected(self, event):
         self.data_scelta.set('2017-' + '0' + str(self.mesi_dict[self.cmb_box_mese.get()]))
