@@ -57,7 +57,7 @@ class Venduto_operatori(tk.Toplevel):
         self.f_label = ('Verdana', 10)
 
         # LABELFRAME cassa 1
-        self.lblfrm_cassa1 = tk.LabelFrame(self, text='SIMONETTA',
+        self.lblfrm_cassa1 = tk.LabelFrame(self, text='OPERATORE 1',
                                            foreground='blue',
                                            font=('Verdana', 20),
                                            labelanchor='n')
@@ -81,7 +81,7 @@ class Venduto_operatori(tk.Toplevel):
         self.lbl_sbilancio_op1_imp = tk.Label(self.lblfrm_cassa1, text=str(self.op1_sbilancio / 100))
 
         # LABELFRAME cassa 2
-        self.lblfrm_cassa2 = tk.LabelFrame(self, text='MARGHERITA',
+        self.lblfrm_cassa2 = tk.LabelFrame(self, text='OPERATORE 2',
                                            foreground='blue',
                                            font=('Verdana', 20),
                                            labelanchor='n')
@@ -105,7 +105,7 @@ class Venduto_operatori(tk.Toplevel):
         self.lbl_sbilancio_op2_imp = tk.Label(self.lblfrm_cassa2, text=str(self.op2_sbilancio / 100))
 
         # LABELFRAME cassa 3
-        self.lblfrm_cassa3 = tk.LabelFrame(self, text='LUCIANO',
+        self.lblfrm_cassa3 = tk.LabelFrame(self, text='OPERATORE 3',
                                            foreground='blue',
                                            font=('Verdana', 20),
                                            labelanchor='n')
