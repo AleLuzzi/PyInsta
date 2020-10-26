@@ -58,8 +58,8 @@ class Impostazioni(tk.Frame):
 
         # LAYOUT
         self.lblfrm_ugalaxy.grid(row=1, column=0)
-        self.lblfrm_pyinsta.grid(row=2, column=0)
-        self.lblfrm_winswgx.grid(row=3, column=0)
+        self.lblfrm_pyinsta.grid(row=2, column=0, sticky='we')
+        self.lblfrm_winswgx.grid(row=3, column=0, sticky='we')
 
         self.btn_ugalaxy.grid()
         self.lbl_ugalaxy.grid()
