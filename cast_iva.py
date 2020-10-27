@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 import datetime as dt
 from dbfread import DBF
+from tkinter import messagebox
+import os
 
 
 class Castelletto_iva(tk.Toplevel):
@@ -19,8 +21,14 @@ class Castelletto_iva(tk.Toplevel):
         self.controller = controller
 
         self.data = self.controller.tab1.data_scelta.get()
-
-        self.tabella = DBF(self.config['PyInsta']['dir'] + '\\castiva.dbf', load=True)
+        self.data_conv = 'I0' + self.data[-2:] + self.data[3:5] + self.data[:2] + '.sid'
+        self.percorso = self.config['Ugalaxy']['dir'] + '\\log\\' + self.data_conv
+        print(self.percorso)
+        exists = os.path.isfile(self.percorso)
+        if exists:
+            print(exists)
+        else:
+            print('non esiste')
 
         # TREEVIEW per visualizzare dati
         self.tree = ttk.Treeview(self, height=10)
@@ -44,31 +52,6 @@ class Castelletto_iva(tk.Toplevel):
         # LAYOUT
         self.tree.grid()
         self.btn_chiudi.grid()
-
-        try:
-            self.data_conv = dt.datetime.strptime(self.data, "%d-%m-%Y").date()
-            print(self.data_conv)
-
-            for record in self.tabella:
-                if record['IMPONIBILE'] is not None and record['DATA_IVA'] == self.data_conv:
-                    self.tree.insert('', 'end',
-                                     values=(record['DATA_IVA'].strftime('%d-%m-%Y'),
-                                             record['DES_IVA'],
-                                             record['IMPONIBILE'] / 100,
-                                             record['IMPOSTA'] / 100))
-
-        except ValueError:
-            self.data_conv = dt.datetime.strptime(self.data, "%Y-%m").date()
-
-            for record in self.tabella:
-                if record['IMPONIBILE'] is not None:
-                    if record['DATA_IVA'].month == self.data_conv.month and \
-                                    record['DATA_IVA'].year == self.data_conv.year:
-                        self.tree.insert('', 'end',
-                                         values=(record['DATA_IVA'].strftime('%d-%m-%Y'),
-                                                 record['DES_IVA'],
-                                                 record['IMPONIBILE'] / 100,
-                                                 record['IMPOSTA'] / 100))
 
     @staticmethod
     def leggi_file_ini():

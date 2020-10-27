@@ -1,6 +1,7 @@
 import configparser
 from tkinter import ttk
 import datetime
+from datetime import timedelta
 import tkinter as tk
 import os
 from distutils.dir_util import copy_tree
@@ -13,7 +14,8 @@ class Data(tk.Frame):
         tk.Frame.__init__(self, parent, controller)
         self.controller = controller
 
-        self.data = datetime.date.today().strftime('%d-%m-%Y')
+        self.data = datetime.date.today()
+        print(self.data - timedelta(days=1))
 
         self.config = self.leggi_file_ini()
 
@@ -24,7 +26,7 @@ class Data(tk.Frame):
 
         # STRINGVAR
         self.data_scelta = tk.StringVar()
-        self.data_scelta.set(self.data)
+        self.data_scelta.set(self.data.strftime('%d-%m-%Y'))
 
         # LABELFRAME Date
         self.lblfrm_intervallo_date = tk.LabelFrame(self,

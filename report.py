@@ -9,7 +9,7 @@ class Report(tk.Frame):
 
         self.controller = controller
 
-        print(self.controller.tab1.data_scelta.get())
+        # print(self.controller.tab1.data_scelta.get())
 
         self.lblfrm_riepilogo = tk.LabelFrame(self, text='Data da elaborare')
         self.lbl_data = tk.Label(self, text='')
