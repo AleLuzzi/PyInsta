@@ -45,9 +45,13 @@ class Data(tk.Frame):
         self.cmb_box_mese.current(0)
         self.cmb_box_mese.bind('<<ComboboxSelected>>', self.combo_selected)
 
+        # CHECKBUTTON per selezionare data 'ieri'
+        self.ieri = tk.Checkbutton(self.lblfrm_intervallo_date, text = "Ieri", command=self._ieri)
+
         # LAYOUT
         self.lblfrm_intervallo_date.grid()
         self.picker.grid()
+        self.ieri.grid(sticky='w')
         self.cmb_box_mese.grid()
 
     @staticmethod
@@ -58,6 +62,10 @@ class Data(tk.Frame):
 
     def combo_selected(self, event):
         self.data_scelta.set('2017-' + '0' + str(self.mesi_dict[self.cmb_box_mese.get()]))
+
+    def _ieri(self):
+        self.data_scelta.set((self.data - timedelta(days=1)).strftime('%d-%m-%Y'))
+        
 
 if __name__ == "__main__":
     root = tk.Tk()
