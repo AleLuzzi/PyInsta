@@ -22,7 +22,7 @@ class Venduto_operatori(tk.Toplevel):
         self.data = self.controller.tab1.data_scelta.get()
         self.data_conv = dt.datetime.strptime(self.data, "%d-%m-%Y").date()
 
-        self.tabella = DBF(self.config['Ugalaxy']['dir'] + '\\finstor.dbf')
+        self.tabella = DBF(self.config['iShuttle']['dir'] + '\\finstor.dbf')
 
         wind_mes = tk.Toplevel()
 

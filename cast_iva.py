@@ -7,7 +7,7 @@ from tkinter import messagebox
 import os
 
 
-class Castelletto_iva(tk.Toplevel):
+class CastellettoIva(tk.Toplevel):
     def __init__(self, controller):
         tk.Toplevel.__init__(self, controller)
 
@@ -22,7 +22,7 @@ class Castelletto_iva(tk.Toplevel):
 
         self.data = self.controller.tab1.data_scelta.get()
         self.data_conv = 'I0' + self.data[-2:] + self.data[3:5] + self.data[:2] + '.sid'
-        self.percorso = self.config['Ugalaxy']['dir'] + '\\log\\' + self.data_conv
+        self.percorso = self.config['iShuttle']['dir'] + '\\log\\' + self.data_conv
         print(self.percorso)
         exists = os.path.isfile(self.percorso)
         if exists:

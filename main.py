@@ -15,8 +15,8 @@ class Main(tk.Frame):
         # FRAME
         self.frame_sx = tk.Frame(self, height=300, width=300, bd=1, relief="raised", bg="white")
         self.frame_sx.grid_propagate(False)
-        self.frame_sx.grid_rowconfigure(0, weight=2)
-        self.frame_sx.grid_columnconfigure(0, weight=2)
+        self.frame_sx.grid_rowconfigure(0, weight=1)
+        self.frame_sx.grid_columnconfigure(0, weight=1)
 
         self.frame_dx = tk.Frame(self, height=300, width=300, bg="white")
         self.frame_dx.grid_propagate(False)
@@ -75,7 +75,7 @@ class Main(tk.Frame):
         Venduto_operatori(self)
 
     def castelletto_iva(self):
-        Castelletto_iva(self)
+        CastellettoIva(self)
 
 
 if __name__ == "__main__":

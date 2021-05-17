@@ -15,7 +15,7 @@ class Impostazioni(tk.Frame):
         self.winswgx_dir.set(self.config['Winswgx']['dir'])
 
         self.lbl_ugalaxy_value = tk.StringVar()
-        self.lbl_ugalaxy_value.set(self.config['Ugalaxy']['dir'])
+        self.lbl_ugalaxy_value.set(self.config['iShuttle']['dir'])
 
         self.lbl_pyinsta_value = tk.StringVar()
         self.lbl_pyinsta_value.set(self.config['PyInsta']['dir'])
@@ -96,6 +96,7 @@ class Impostazioni(tk.Frame):
         self.config.set('PyInsta', 'dir', new_dirname)
         self.config.write(cfg_file)
         self.lbl_pyinsta_value.set(new_dirname)
+
 
 if __name__ == "__main__":
     root = tk.Tk()

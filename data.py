@@ -46,7 +46,7 @@ class Data(tk.Frame):
         self.cmb_box_mese.bind('<<ComboboxSelected>>', self.combo_selected)
 
         # CHECKBUTTON per selezionare data 'ieri'
-        self.ieri = tk.Checkbutton(self.lblfrm_intervallo_date, text = "Ieri", command=self._ieri)
+        self.ieri = tk.Checkbutton(self.lblfrm_intervallo_date, text="Ieri", command=self._ieri)
 
         # LAYOUT
         self.lblfrm_intervallo_date.grid()
