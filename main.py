@@ -72,7 +72,7 @@ class Main(tk.Frame):
         self.quit()
 
     def venduto_operatori(self):
-        Venduto_operatori(self)
+        VendutoOperatori(self)
 
     def castelletto_iva(self):
         CastellettoIva(self)

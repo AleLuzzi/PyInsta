@@ -7,7 +7,7 @@ import tkinter.ttk as ttk
 from dbfread import DBF
 
 
-class Venduto_operatori(tk.Toplevel):
+class VendutoOperatori(tk.Toplevel):
     def __init__(self, controller):
         tk.Toplevel.__init__(self, controller)
         x = (self.winfo_screenwidth() - self.winfo_reqwidth()) / 2
